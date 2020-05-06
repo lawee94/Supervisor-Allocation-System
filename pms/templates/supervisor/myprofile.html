@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}My Profile {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid w-75 pb-5">
+
+        <div class="bg-danger rounded px-3 py-1">
+            <h3 class="text-white mt-2 float-left">My Profile</h3>
+            <button class="btn btn-primary float-right">Edit Profile</button><hr class="black mt-0">
+        </div>
+
+        <div class="rounded container-fluid  box-div mb-5 py-3 mt-2">            
+            
+            <div class="container-fluid row">
+                <div class="col-sm-9 text-left">
+                    <p>Name: <strong>{{ data.surname }} {{ data.user.first_name }} {{ data.user.last_name }}</strong></p>
+                    <p>Mobile Number: {{ data.phone_no }}</p> 
+                    <p>Email: {{ data.user.email }}</p> 
+                    <p>Workload: {{ data.capacity }}</p>
+                    <p>Allowed Preference: {{ data.allowed }}</p>
+                </div>
+                <div class="col-sm-3 text-right">
+                    <img  class="img-thumbnail" src="{% static 'images/bg.png' %}">
+                </div>
+
+            </div>
+            
+        </div>   
+    </div>
+
+{% endblock %}

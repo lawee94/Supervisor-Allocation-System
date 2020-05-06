@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Student {% endblock %}
+
+{% block script %}
+
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="" style="height: 78%">
+
+    {% if messages %}
+    <ul class="mx-50 box-div bg-white w-50  " id="message" >
+        {% for message in messages %}
+        <li class="{{ message.tags }}">
+        <div class="pt-3 px-3">
+            <p class="text-danger">{{ message|safe }}
+            <a href="" class="close ml-5 align-left" id="close">x</a></p>
+        </div>
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<div class="container-fluid box-div w-50 px-0 bg-white pt-2">
+
+    
+
+    <h2 class=" my-2">Upload Eligible Students</h2><hr class="black">
+        <ul class="nav nav-tabs">
+
+            <li class="nav-item" >
+                <a data-toggle="tab" class="nav-link active" href="#first">Upload Batch File</a>
+            </li>
+
+            <li class="nav-item ">
+                <a data-toggle="tab" class="nav-link text-dark"  href="#second">Add Students</a>
+            </li>
+                
+        </ul>
+
+        <!--Nav-tab contents-->
+        <div class="tab-content">
+           
+            <div class="tab-pane container active" id="first">
+                <form action="" method="post" class="" enctype="multipart/form-data">
+                    {{ fileform.sheet }}
+                    {% csrf_token %}
+                    <button id="sheet_btn" name="bash" type="submit" class="btn btn-primary mb-5">Upload</button>
+                </form>
+            </div>
+            
+            <div class="tab-pane fade" id="second">
+                <form action="" method="post" >
+                    {{ el_form.name }}
+                    {{ el_form.matricNo }}
+                    {% csrf_token %}
+                    <button type="submit" name="single" class="btn btn-primary mb-5">Add Student</button>
+                </form>
+            </div>  
+        </div>
+</div>
+
+</div>
+
+{% endblock %}

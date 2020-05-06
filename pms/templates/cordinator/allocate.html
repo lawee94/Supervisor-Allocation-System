@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Allocation{% endblock %}
+
+{% block content %}
+
+<div class="py-5 mb-4 mt-5">
+    {% if messages %}
+        <ul class="mx-50 box-div bg-white w-50 mb-1" id="message" >
+            {% for message in messages %}
+            <li class="{{ message.tags }}">
+            <div class="pt-3 px-3">
+                <p class="text-danger">{{ message|safe }}
+                <a href="" class="close ml-5 align-left" id="close">x</a></p>
+            </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="container-fluid box-div w-50 px-0 bg-white py-4 mt-0"  style="overflow: hidden">
+            
+            <h3>Student & Supervisor Allocation</h3><hr class="black">
+            <div class="row border">
+                <div class="col-sm-6 ">
+                    <table class="table ml-4 ">
+                        <tbody class="text-left ">
+                            <tr><td>Student's Count</td><td><strong>{{ std }} </strong></td></tr>
+                            <tr><td>Total Supervisor Capacity</td><td><strong>{{ count }}</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6 border p-3">
+                    {% if count >= std %}
+                        <img src="{% static 'images/images.jpeg' %}" width="100" height="100" alt="">
+                    {% else %}
+                        <img src="{% static 'images/cancel.jpeg' %}" width="100" height="100" alt="">
+                    {% endif %}
+                </div>
+            </div>
+                
+            <form action="" method="POST" class="mt-4 mb-0"  enctype="multipart/form-data">
+                {% csrf_token %}
+                    
+                    <!-- {{ form.sheet }} -->
+                    {% if count >= std %}
+                        <input class="btn btn-primary mt-0" type="submit" value="Start Allocation" name="submit">
+                    {% else %}
+                        <input class="btn btn-primary mt-0" type="submit" value="Start Allocation" name="submit2">   
+                    {% endif %}
+            </form>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Student {% endblock %}
+
+{% block content %}
+
+<div class="box-div pb-5 pt-3 bg-white mt-5 " style="max-width: 800px; height: 474px;" >
+
+    <ul class="nav nav-tabs">
+
+        <li class="nav-item" id="tab1">
+            <a data-toggle="tab" class="nav-link active" id="login" href="#first">Basic Information</a>
+        </li>
+
+        <li class="nav-item " id="tab2">
+            <a data-toggle="tab" class="nav-link" id="personal" href="#second">Personal Information</a>
+        </li>
+
+        <li class="nav-item " id="tab3">
+            <a data-toggle="tab" class="nav-link" id="personal" href="#third">Supervisor</a>
+        </li>
+            
+    </ul>
+
+    <!--Nav-tab contents-->
+    <div class="tab-content">
+    
+        <div class="tab-pane container active" id="first">
+            
+            <img  class="rounded-circle img-circle m-4" src="{{ data.get_image }}" ><br>
+        
+            <li><h2><strong>{{ data.surname }} {{ data.user.first_name }} {{ data.user.last_name }}</strong></h2></li><br>
+            <li>Matric Number: <h2><strong>{{ data.user }}</strong></h2></li>
+
+        </div><!--End of First Tab Content-->
+
+        <div class="tab-pane fade " id="second">
+            <div class="row pt-3">
+                <div class="col-md-6 ">
+                    <li>Gender <h2><strong>{{ data.gender }}</strong></h2></li> <hr class="black">
+                    <li>Option <h3><strong>{{ data.option }}</strong></h3></li><hr class="black">
+                    <li>Phone Number <h2><strong>{{ data.phone_no }}</strong></h2></li> <hr class="black">
+                    <li>E-mail <h4><strong>{{ data.user.email }}</strong></h4></li> 
+                </div>
+
+                <div class="col-md-6">
+                    <li>First Choice Supervisor <h3><strong>{{ data.supervisor_1.surname }} {{ data.supervisor_1.user.first_name }}. 
+                        {{ data.supervisor_1.user.last_name }}.</strong></h3></li><hr class="black">
+                    <li>Second Choice Supervisor <h2><strong>{{ data.supervisor_2.surname }} {{ data.supervisor_1.user.first_name }}. 
+                            {{ data.supervisor_1.user.last_name }}.</strong></h3></li><hr class="black">
+                    <li>First Area of Concentration <h2><strong>{{ data.AOC1|capfirst }}</strong></h2></li> <hr class="black">
+                    <li>Second Area of Concentration <h4><strong>{{ data.AOC2|capfirst }}</strong></h4></li> 
+                </div>
+            </div>
+        </div><!--End of Second Tab Content-->
+
+        <div class="tab-pane fade py-5" id="third">
+            {% if data.supervisor %}
+                <img  class="rounded-circle img-circle m-4" src="{{ data.supervisor.get_image }}" ><br>
+
+                <h1><a href="{{ data.supervisor.get_absolute_url }}" target="_blank">{{ data.supervisor.surname }} 
+                    {{ data.supervisor.user.first_name }}. {{ data.supervisor.user.last_name }}.</a></h1> 
+            {% else %}
+                <h1 class="text-center my-4">Allocation not yet done!!!. <br><br> Check back later</h1>    
+            {% endif %}
+        </div><!--End of Third Tab Content-->
+
+    </div><!--End of Tab Content-->
+
+</div>
+
+{% endblock %}

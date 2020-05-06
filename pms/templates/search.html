@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Student  Profile {% endblock %}
+
+{% block script %}
+    
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid w-75 py-3"">
+        <div class="bg-danger rounded px-3 py-1 ">
+            <h4 class="text-white mt-2">Found {{ total }} Result{{ total|pluralize }}</h4>
+        </div>
+        <div class="container-fliud bg-white box-div p-4 mt-1 mb-5 rounded">
+            {% if results %}
+                <table class=" w-100 table table-hover">
+                    <tbody class="">   
+                        {% for post in results %}
+                            <tr class="text-left">
+                                <td>{{ forloop.counter0|add:results.start_index }}</td> 
+                                <td><a href="{{ post.get_absolute_url }}">{{ post.surname }} {{ post.user.first_name }} {{ post.user.last_name }}</a></td> 
+                                <td>{{ post.matricNo }}</td>
+                            </tr></a>
+                        {% empty %}
+                            <p>No Result Found</p>
+                        {% endfor %}
+                    </tbody>
+                </table> 
+                {% include "pagination.html" with page=results %} 
+            {% else %}
+                <h2 class="my-5">No Result Found</h2>
+            {% endif %}
+            
+        </div>
+    </div>
+            
+   
+{% endblock %}

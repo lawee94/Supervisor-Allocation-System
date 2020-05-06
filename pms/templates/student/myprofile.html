@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} My Profile {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid w-75 pb-5">
+        
+        <div class="rounded container-fluid  box-div mb-5 py-3 mt-2">
+            <h3 class="text-left">Student Profile</h3><hr class="black mt-0">
+            
+            <div class="container-fluid row">
+                <div class="col-sm-9 text-left">
+                    <p>Name: <strong>{{ data.surname }} {{ data.user.first_name }} {{ data.user.last_name }}</strong></p>
+                    <p>Matric Number:  {{ data.user }}</p> 
+                    <p>Option: {{ data.option }}</p> 
+                    <p>Gender: {{ data.gender }}</p> 
+                    <p>Mobile Number: {{ data.phone_no }}</p> 
+                    <p>Email: {{ data.user.email}}</p> 
+                    <p>Supervisor: {{ data.supervisor }} {{ data.supervisor.user.first_name }}. {{ data.supervisor.user.last_name }}.</p> 
+                </div>
+                <div class="col-sm-3 text-right">
+                    <img  class="img-thumbnail" src="{% static 'images/bg.png' %}">
+                </div>
+
+            </div>
+            
+        </div>   
+    </div>
+
+{% endblock %}

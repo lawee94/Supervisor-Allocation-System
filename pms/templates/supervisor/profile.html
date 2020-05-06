@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Supervisor {% endblock %}
+
+{% block script %}
+
+    
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid w-75 my-4 ">
+        
+        <div class="bg-danger rounded px-3 py-1 mt-4">
+            <h4 class="text-white mt-2">Preference List</h4>
+        </div>
+        <div class="rounded container-fluid box-div mb-5 mt-1 py-4 bg-white">
+                
+            {% if prefer.count < request.user.supervisors.allowed %} 
+                <div class="">
+                    
+                    <form action="" method="POST" class="mb-4">
+                        {% if preferForm.student.errors %}
+                            <p class="text-danger input-inline">{{ preferForm.student.errors }}</p>
+                        {% endif %}
+                        <p class="input-inline">Choose Prefered Student: </p> {{ preferForm.student }}
+                        {% csrf_token %}
+                        <button class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            {% endif %}
+  
+            <div class="container-fluid text-left">
+                {% if prefer %}
+                    <table class=" w-100">
+                        <thead>
+                            <tr class="text-left">
+                                <th>S/N </th>
+                                <th>Matric_Number</th>
+                                <th>Name </th>
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            {% for std in prefer %}
+                                <tr class="text-left">
+                                    <td>{{ forloop.counter }}</td> 
+                                    <td><a href="{{ std.student.get_absolute_url }}"> {{ std.student.user }} </a></td>
+                                    <td>{{ std.student.user.students.surname }} {{ std.student.user.first_name }} {{ std.student.user.last_name }}</td> 
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>      
+                {% else %}
+                    <h3 class="text-center my-4">Preference List is Empty</h3> 
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="container-fluid mx-0">
+            <div class="bg-danger rounded px-3 py-1">
+                <h4 class="text-white mt-2">Allocated Students</h4>
+            </div>
+
+            <div class="rounded container-fluid box-div mb-5 mt-1 py-3 bg-white">
+
+                <div class="mb-4">
+                    
+                    {% if allocated %}
+                        <div class="container-fluid ">
+                            <table class=" w-100">
+                                <thead>
+                                    <tr class="text-left">
+                                        <th>S/N </th>
+                                        <th>Matric Number</th>
+                                        <th>Name </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="">
+                                    {% for std in allocated  %}
+                                    
+                                    <tr class="text-left">
+                                        
+                                        <td>{{ forloop.counter }}</td> 
+                                        <td><a href="{{ std.get_absolute_url }}"> {{ std.user }} </a></td>
+                                        <td>{{ std.surname }} {{ std.user.first_name }} {{ std.user.last_name }}</td> 
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>                
+                        </div>
+                    {% else %}
+                        <h3 class="text-center my-4">Allocation not yet done!!!. Check back later</h3>
+                    {% endif %}
+                </div> 
+            </div>
+        </div>
+        
+    </div>
+
+{% endblock %}

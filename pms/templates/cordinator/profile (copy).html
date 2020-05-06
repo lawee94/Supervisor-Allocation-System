@@ -1,0 +1,89 @@
+{% extends 'cordinator/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Admin {% endblock %}
+
+{% block content %}
+<div class="container-fluid mb-4 w-75" >
+    <div class="float-right">
+        <form action="." method="get">
+           {{ form.query }}
+            <button type="submit"  id="search_submit" class="btn btn-pprimary">
+                <img  src="{% static 'images/search.png' %}" >
+            </button>
+        </form> 
+    </div>
+</div>
+
+<div class="container-fliud">
+    {% if query %}
+    <div class="dash_content text-left">
+      <h3 class="text-danger">
+        {% with results.count as total_results %}
+        Found {{ total_results }} result{{ total_results|pluralize }}
+        {% endwith %}
+      </h3>
+        {% for post in results %}
+      <h4 id="searchres{{ post.id }}" style="cursor: pointer" data-toggle="collapse"  data-target=".dem{{ post.id }}" class="text-dark none"> {{ post.title }}</h4>
+      <p class="text-dark collapse in dem{{ post.id }}" >{{ post.description|truncatewords:4 }}</p>
+       <div id="dem{{ post.id }}" class="collapse bg-white dem{{ post.id }}">
+            {{ post.description }}
+          </div>
+            {% empty %}
+            <p>There are no results for your query.</p>
+          {% endfor %}
+      <br><br><p><a href="{% url 'faq' %}"><button id="search_again" class="btn btn-primary pull-left">Search again</button></a>
+       <a href="{% url 'faq' %}"><button class="btn btn-danger pull-right">Clear Search Result</button></a></p>
+     </div><br><br>
+    {% endif %}
+  </div>
+
+<div class="container-fluid w-75 box-div my-0 ">
+
+    <div class="row">
+        <div class="col-sm-6 bg-white">
+            <table class="table-hover  my-2">
+                <thead>
+                    <th><h2>Student Statistics</h2> </th>
+                </thead>
+                <tbody class="float-left text-left">
+                    <tr><td><p>Eligible Students : </p></td> <td><p>130</p></td> </tr>
+                    <tr><td> <p>Registered Students : </p></td> <td><p>30</p></td> </tr>
+                    <tr><td><p>Unregistered Students : </p></td> <td><p>30</p></td> </tr>
+                    <tr><td> <p>Allocated Students : </p></td> <td><p>30</p></td> </tr>
+                    <tr><td> <p>Unallocated Students : </p></td> <td><p>30</p></td> </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6 bg-white">
+            <table class="table-hover my-2">
+                <thead>
+                    <th class="align-center"><h2>Supervisor Statistics</h2></th>
+                </thead>
+                <tbody class="float-left text-left">
+                    <tr><td><p>Supervisor Count : </p></td> <td><p>30</p></td> </tr>
+                    <tr><td> <p>Allocated Supervisor : </p></td> <td><p>30</p></td> </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+       
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 bg-white box-div py-3 my-4">
+            <h2>Allocation</h2>
+            <p>Click here to start the allocation process</p>
+            <button class="btn btn-primary mb-4">Start Allocation</button>
+        </div>
+        <div class="col-sm-3 bg-white box-div py-3 my-4">
+            <h2>Report</h2>
+            <p>Click here to generate allocation report</p>
+            <button class="btn btn-primary mb-4">Generate Report</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,125 @@
+
+{% load staticfiles %}
+
+{% load mytag %}
+
+<script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+
+<!-- Modal -->
+<form method="post" class="form-horinzontal" data-url="{% url 'pms:delete_user' data.user.pk %}" id="user_update">
+    {% csrf_token %}
+
+    <div class="modal-header bg-primary">
+      <h4 class="modal-title text-white">Edit User Profile</h4>
+      <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">&times;</button>
+      
+    </div>
+
+    <div class="modal-body">
+
+    <!-- {% if messages %}
+        <ul class="mx-50 box-div bg-white mb-0" id="message" style="max-width: 800px">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                <div class="pt-3 px-3">
+                    <p class="text-danger">{{ message|safe }}
+                    <a href="" class="close ml-5 align-left" id="close">x</a></p>
+                </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %} -->
+
+        <ul class="nav nav-tabs">
+
+            <li class="nav-item" id="tab1">
+                <a data-toggle="tab" class="nav-link active" id="login" href="#first1">Login Information</a>
+            </li>
+
+            <li class="nav-item " id="tab2">
+                <a data-toggle="tab" class="nav-link" id="personal" href="#second2">Personal Information</a>
+            </li>
+                
+        </ul>
+
+            <!--Nav-tab contents-->
+            <div class="tab-content">
+           
+                <div class="tab-pane container active" id="first1">
+                    
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <img id="imgcircle" class="rounded-circle img-circle mt-4" >
+                            <div class="form-row"><li>{{ profileform.image }}</li> </div>
+                            <div class="form-row"><li>{{ profileform.option }}</li></div>
+                            {{ user }}
+                        </div>
+
+                        <div class="col-lg-6">
+                            {% if userform.errors %}
+                                <p>
+                                    Incorrect username or password.
+                                    Please try again. {{ userform.errors }}
+                                </p>
+                            {% endif %}
+                                <div class="form-row "><li>{{userform.username}}</li></div>
+                                <div class="form-row"><li>{{ userform.password}}</li></div>
+                                <div class="form-row"><li>{{ userform.password2}}</li></div>
+                                <div class="form-row"><li>{{ userform.email }}</li> </div>
+                                <button  type="button" class="btn btn-primary" id="next" >Next</button>
+                                {% csrf_token %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="second2">
+                    <div class="row">
+                        {% if profileform.errors %}
+                            <p>
+                                Invalid Form Submission. Please try again.
+                            </p>
+                        {% endif %}
+                        <div class="col-lg-6">
+                            <div class="form-row">
+                                <li>{{ profileform.surname }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ userform.first_name }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ userform.last_name }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ profileform.gender }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{profileform.phone_no}}</li>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-row">
+                                <li>{{ profileform.supervisor_1 }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ profileform.supervisor_2 }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ profileform.AOC1 }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ profileform.AOC2 }}</li>
+                            </div>
+                            <button  type="button" class="btn btn-primary" id="back" >Back</button>
+                            <button  type="submit" class="btn btn-primary" >Submit</button>
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div><!--End of Tab Content-->
+        
+    </div>
+
+</form>

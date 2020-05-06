@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Supervisor Registration {% endblock %}
+    
+{% block script %}
+
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-2 mt-5">
+
+    {% if messages %}
+        <ul class="mx-50 box-div bg-white mb-0" id="message" style="max-width: 800px" >
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                <div class="pt-3 px-3">
+                    <p class="text-danger">{{ message|safe }}
+                    <a href="" class="close ml-5 align-left" id="close">x</a></p>
+                </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="box-div py-3 bg-danger mt-1 " style="max-width: 800px" >
+        <form action="" class="form-horinzontal" method="post" enctype="multipart/form-data">
+
+            <ul class="nav nav-tabs">
+
+                <li class="nav-item" id="tab1">
+                    <a data-toggle="tab" class="nav-link active" id="login" href="#first">Login Information</a>
+                </li>
+
+                <li class="nav-item disabled" id="tab2">
+                    <a data-toggle="tab" class="nav-link" id="personal" href="#second">Personal Information</a>
+                </li>
+                   
+            </ul>
+
+            <!--Nav-tab contents-->
+            <div class="tab-content">
+           
+                <div class="tab-pane container active" id="first">
+                    
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <img id="imgcircle" class="rounded-circle img-circle mt-4" >
+                            <div class="form-row"><li>{{ profileform.image }}</li> </div>
+                            <!-- <div class="form-row"><li>{{ profileform.slug }}</li></div> -->
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-row "><li>{{userform.username}}</li></div>
+                            <div class="form-row"><li>{{ userform.password}}</li></div>
+                            <div class="form-row"><li>{{ userform.password2}}</li></div>
+                            <div class="form-row"><li>{{ userform.email }}</li> </div>
+                            <button  type="button" class="btn btn-primary" id="next" >Next</button>
+                            {% csrf_token %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="second">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-row">
+                                <li>{{ profileform.surname }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ userform.first_name }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ userform.last_name }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{profileform.phone_no}}</li>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-row">
+                                <li>{{ profileform.AOC1 }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ profileform.AOC2 }}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ profileform.capacity}}</li>
+                            </div>
+                            <div class="form-row">
+                                <li>{{ profileform.allowed}}</li>
+                            </div>
+                            <button  type="button" class="btn btn-primary" id="back" >Back</button>
+                            <button  type="submit" class="btn btn-primary" >Submit</button>
+                            {% csrf_token %}
+                        </div>
+                    </div>
+                </div>
+            </div><!--End of Tab Content-->
+        </form>
+    </div>
+</div>
+{% endblock %}

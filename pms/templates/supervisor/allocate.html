@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Supervisor  Profile {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid w-75 pb-5">
+        
+        <div class="bg-danger rounded px-3 py-1">
+            <h3 class="text-white mt-2 ">Supervisor Profile</h3>
+        </div>
+
+        <div class="rounded container-fluid  box-div mb-5 py-3 mt-1">
+            
+            <div class="container-fluid row">
+                
+                
+                    {{ sup }}
+                
+                    
+
+            </div>
+            
+        </div>   
+    </div>
+
+{% endblock %}

@@ -1,0 +1,99 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <title>{% block title %}{% endblock %}</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--css links-->
+    <link href="{% static 'bootstrap4/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/offcanvas.css' %}" rel="stylesheet">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+
+    <!--JS links-->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap4/js/bootstrap.js' %}"></script>
+    
+    {% block script %}{% endblock %}
+  </head>
+
+  <body>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark ">
+            <!-- Brand -->
+            <a class="navbar-brand text-white" href="{% url 'pms:index' %}">CSC SAS</a>
+            
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav mr-auto ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    {% if request.user.is_authenticated %}
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Student <span class="caret"></span></a>
+                            <ul class="dropdown-menu px-3">
+                              <li><a href="#">View Student</a></li>
+                            </ul>
+                        </div>
+                       
+
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Supervisor <span class="caret"></span></a>
+                            <ul class="dropdown-menu px-3">
+                                <li><a href="#">View Supervisor</a></li>
+                            </ul>
+                        </div>
+                            
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"> OAU Web</a>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+    
+                    <li class="nav-item">
+                            <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                
+        
+                </ul>
+                <div class="text-white">
+                    {% if request.user.is_authenticated %}
+                    
+                        Hello {{ request.user.first_name }} &nbsp; 
+                        <a href="{% url 'pms:logout' %}"> 
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+                        </a>
+                    
+                    {% else %}
+                    <a href="{% url 'pms:student_reg' %}"> 
+                       <button class="btn btn-outline-success my-2 my-sm-0 " type="submit">Sign Up</button> &nbsp;
+                    </a>
+                    <a href="{% url 'pms:index' %}"> 
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+                    </a>
+                    {% endif %}
+                </div>
+            </div> 
+        </nav>
+  
+    {% block content %}{% endblock %}
+
+  </body>
+</html>

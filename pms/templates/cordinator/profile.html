@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% load mytag %}
+
+{% block title %} Admin {% endblock %}
+
+{% block content %}
+<div class="container-fluid px-5 bg-green py-3">
+    
+    <div class="row">
+        <div class="col-sm-3 bg-white box-div py-3 px-0 mt-4">
+            <h4>Eligible Students</h4>
+            <button class="btn bg-green text-white mb-2"><h3 class="m-0">{{ el_std }}</h3></button>
+        </div>
+        <div class="col-sm-3 bg-white box-div py-3 px-0 mt-4">
+                <h4>Registered Students</h4>
+               <a href="{% url 'pms:std_list' %}" target="_blank"><button class="btn bg-green text-white mb-2"><h3 class="m-0">{{ std }}</h3></button></a> 
+        </div>
+        <div class="col-sm-3 bg-white box-div py-3 px-0 mt-4">
+                <h4>Supervisor Count</h4>
+                <a href="{% url 'pms:sup_list' %}" target="_blank"><button class="btn bg-green text-white mb-2"><h3 class="m-0">{{ sup }}</h3></button></a>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-sm-3 bg-white box-div py-3 px-0 mt-2 mb-4">
+                <h4>Allocated Students </h4>
+                <button class="btn bg-green text-white mb-2"><h3 class="m-0">{{ std|subtract:reg_std }}</h3></button>
+            </div>
+            <div class="col-sm-3 bg-white box-div py-3 px-0 mt-2 mb-4">
+                    <h4>Allocated Supervisor</h4>
+                    <button class="btn bg-green text-white mb-2"><h3 class="m-0">{{ al_sup|add:"-1" }}</h3></button>
+            </div>
+            <div class="col-sm-3 bg-white box-div py-3 px-0 mt-2 mb-4">
+                    <h4>Unallocated Students</h4>
+                    <button class="btn bg-green text-white mb-2"><h3 class="m-0">{{ reg_std }}</h3></button>
+            </div>
+        </div>
+
+</div>
+
+<div class="container-fluid  bg-dark">
+    <div class="row">
+        <div class="col-sm-3 bg-white box-div py-3 px-0">
+            <h2>Allocation</h2><hr class="black">
+            <p>Click here to start the allocation process</p>
+            <a href="{% url 'pms:allocate' %}"><button class="btn bg-green text-white mb-4">Start Allocation</button></a>
+        </div>
+        <div class="col-sm-3 bg-white box-div py-3 px-0">
+            <h2>Report</h2><hr class="black">
+            <p>Click here to generate allocation report</p>
+            <button class="btn bg-green text-white mb-4">Generate Report</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

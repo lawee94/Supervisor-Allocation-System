@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% load mytag %}
+
+{% block title %} Student Profile {% endblock %}
+
+{% block script %}
+    <!-- <script type="text/javascript" src="{% static 'js/app.js' %}"></script> -->
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid w-75 mt-4 mb-4">
+
+        <div class="bg-danger rounded px-3 py-1">
+            <h3 class="text-white mt-2 ">Student Profile</h3>
+        </div>   
+
+        <div class="box-div pt-3 bg-white mt-1 " style="min-height: 425px;" >
+
+                <ul class="nav nav-tabs">
+            
+                    <li class="nav-item" id="tab1">
+                        <a data-toggle="tab" class="nav-link active" id="login" href="#first">Basic Information</a>
+                    </li>
+            
+                    <li class="nav-item " id="tab2">
+                        <a data-toggle="tab" class="nav-link" id="personal" href="#second">Personal Information</a>
+                    </li>
+                        
+                    {% if request.user|has_group:"superadmin" %}
+                        <li class="nav-item " id="tab3">
+                            <a data-toggle="tab" class="nav-link" id="acct" href="#third">Manage Account</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                
+                    
+                <!--Nav-tab contents-->
+                <div class="tab-content">
+                
+                    <div class="tab-pane container active  " id="first">
+                       
+                        <img  class="rounded-circle img-circle m-4" src="{{ data.get_image }}" >
+                    
+                        <li><h2><strong>{{ data.surname }} {{ data.user.first_name }} {{ data.user.last_name }}</strong></h2></li>
+                        <li>Matric Number: <h2><strong>{{ data.user }}</strong></h2></li>
+        
+                    </div><!--End of First Tab Content-->
+            
+                    <div class="tab-pane fade align-self-center" id="second">
+                        <div class="row pt-3">
+                            <div class="col-md-6 ">
+                                <li>Gender <h2><strong>{{ data.gender }}</strong></h2></li> <hr class="black">
+                                <li>Option <h3><strong>{{ data.option }}</strong></h3></li><hr class="black">
+                                <li>Supervisor <a href="{{ data.supervisor.get_absolute_url }}" target="_blank"> <h3><strong>{{ data.supervisor.surname|default:None }} {{ data.supervisor.user.first_name }}. 
+                                        {{ data.supervisor.user.last_name }}.</strong></h3> </a></li>
+                            </div>
+            
+                            <div class="col-md-6">
+                                <li>Phone Number <h2><strong>{{ data.phone_no|default:None }}</strong></h2></li> <hr class="black">
+                                <li>E-mail <h4><strong>{{ data.user.email|default:None }}</strong></h4></li> <hr class="black">
+                            </div>
+                        </div>
+                    </div><!--End of Second Tab Content-->
+            
+                    <div class="tab-pane fade align-self-center pt-5" id="third">
+                        <button  data-url="{% url 'pms:update_user' data.user.pk %}" class="btn btn-primary js-edit-user"> Edit Profile</button>
+                        <button class="btn btn-danger js-act-user" data-toggle="modal" data-target="#modal_del">Deactivate Accont</button>
+                        <button class="btn btn-danger js-delete-user" data-toggle="modal" data-target="#modal_del">Delete Account</button>
+                    </div>
+
+                </div><!--End of Tab Content-->
+            
+            </div>
+
+            
+        </div>   
+
+          <!--Modal-->
+          <div class="modal fade" id="modal_user">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                
+              </div>
+            </div>
+          </div>
+      <!--End of Modal-->
+
+    </div>
+
+   
+
+{% endblock %}

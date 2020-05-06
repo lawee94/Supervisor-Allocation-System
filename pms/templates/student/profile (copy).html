@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Student {% endblock %}
+
+{% block content %}
+<div class="container-fluid mb-4 w-75" >
+    <div class="float-right">
+        <form action="." method="get">
+           {{ form.query }}
+            <button type="submit"  id="search_submit" class="btn btn-pprimary">
+                <img  src="{% static 'images/search.png' %}" >
+            </button>
+        </form> 
+    </div>
+</div>
+
+{% if prefer != " " %}
+<div class="container-fluid box-div w-50 px-0">
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="{{ message.tags }}">
+                {{ message|safe }}
+                <a href="#" class="close">x</a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2 class="text-white my-2">Supervisor Preference Form</h2><hr>
+    <form action="" method="post" class="my-5">
+        <ul>
+            <li class="text-white mb-5">1st Choice : &nbsp;{{ studentform.supervisor_1 }}</li>
+            <li class="text-white">2nd Choice : {{ studentform.supervisor_2 }}</li>
+        </ul>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+        </ul>
+    </form>
+   
+</div>
+
+{% else %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 bg-white box-div py-3 my-4">
+            <h2>Allocation</h2>
+            <p>Click here to start the allocation process</p>
+            <button class="btn btn-primary mb-4">Start Allocation</button>
+        </div>
+        <div class="col-sm-3 bg-white box-div py-3 my-4">
+            <h2>Report</h2>
+            <p>Click here to generate allocation report</p>
+            <button class="btn btn-primary mb-4">Generate Report</button>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

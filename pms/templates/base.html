@@ -1,0 +1,144 @@
+{% load staticfiles %}
+
+{% load mytag %}
+
+<!DOCTYPE html>
+<html lang="en">
+  
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <title>{% block title %}{% endblock %}</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--css links-->
+    <link href="{% static 'bootstrap4/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/offcanvas.css' %}" rel="stylesheet">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+
+    <!--JS links-->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap4/js/bootstrap.js' %}"></script>
+    
+    {% block script %}{% endblock %}
+  </head>
+
+  <body class="pt-0">
+    <div class="" style="height: 94.1vh; overflow: auto; display: block;" >
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light  bg-white" >
+                <!-- Brand -->
+                <a class="navbar-brand " href="{% url 'pms:index' %}">CSC PSAS</a>
+                
+                <!-- Toggler/collapsibe Button -->
+                <form action="{% url 'pms:searchs' %}" method="GET" class="input-inline navbar-toggler collapsed">
+                        <input type="text" id="query" class="input-inline" name="q" value="{{ request.GET.get }}" placeholder="Search...">
+                        <button type="submit"  id="search_submit" class="btn bg-white">
+                            <img  src="{% static 'images/search.png' %}" > 
+                        </button>
+                    </form>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav mr-auto ">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'pms:index' %}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        {% if request.user.is_authenticated %}
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown"> Student <span class="caret"></span></a>
+                                <ul class="dropdown-menu px-3">
+                                    <li><a href="{% url 'pms:std_list' %}" target="_blank">View Student</a></li>
+                                    {% if request.user|has_group:"admin" %}
+                                        <li><a href="{% url 'pms:std_reg' %}">Add Student</a></li>
+                                        <li><a href="{% url 'pms:upload' %}">Upload Students</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        
+
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown"> Supervisor <span class="caret"></span></a>
+                                <ul class="dropdown-menu px-3">
+                                    <li><a href="{% url 'pms:sup_list' %}" target="_blank">View Supervisor</a></li>
+                                    {% if request.user|has_group:"admin" %}
+                                        <li><a href="{% url 'pms:supervisor_reg' %}">Add Supervisor</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                                
+                        
+                            {% if request.user|has_group:"admin" %}
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown"> Admin <span class="caret"></span></a>
+                                    <ul class="dropdown-menu px-3">
+                                        <li><a href="{% url 'pms:admin_list' %}" target="_blank">View All Admin</a></li>
+                                        {% if request.user|has_group:"superadmin" %}
+                                            <li><a href="{% url 'pms:admin_reg' %}">Add Admin</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                        {% endif %}
+        
+                    
+                    </ul>
+                
+                    <div class="text-dark ">
+                            
+                        {% if request.user.is_authenticated %}
+                        
+                            <form action="{% url 'pms:searchs' %}" method="GET" class="hides float-left">
+                                <input type="text" id="query" class="input-inline" name="q" value="{{ request.GET.get }}" placeholder="Search...">
+                                <button type="submit"  id="search_submit" class="btn bg-white">
+                                    <img  src="{% static 'images/search.png' %}" > 
+                                </button>
+                            </form>
+
+                            {% if request.user|has_group:"admin" %}
+                                Hello Admin &nbsp; 
+                            {% elif request.user|has_group:"supervisor" %}
+                                Hello {{ request.user.supervisors.surname }} &nbsp;
+                            {% else %}
+                                Hello {{ request.user.students.surname }} &nbsp;
+                            {% endif %}
+                            <a href="{% url 'pms:logout' %}"> 
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+                            </a>
+                            
+                        {% else %}
+                        <a href="{% url 'pms:student_reg' %}"> 
+                            <button class="btn btn-outline-success my-2 my-sm-0 " type="submit">Sign Up</button> &nbsp;
+                        </a>
+                        <a href="{% url 'pms:index' %}"> 
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div> 
+            </nav>
+        </header>
+    
+            {% block content %}{% endblock %}
+    </div>
+
+    <footer class="text-center">
+        <strong>
+            Copyright@ FE$T@C 2019 &nbsp; | 
+            <a class="nav-link text-dark input-inline" href="{% url 'pms:about_us' %}">About</a> | 
+            <a class="nav-link text-dark input-inline" href="{% url 'pms:contact' %}">Contact Us</a> |
+            <a class="nav-link text-dark input-inline" href="http://www.oauife.edu.ng"> OAU_Web</a>
+        </strong> 
+    </footer>
+
+  </body>
+</html>
+

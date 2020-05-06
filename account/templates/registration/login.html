@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+    
+         <form action="{% url 'login' %}" method="post">
+      <div id="container">
+        <p id="head">Log-in</p>
+  {% if form.errors %}
+    <p>
+      Incorrect username or password.
+      Please try again.
+    </p>
+  {% endif %}
+      <ul>
+      <li>{{ form.username|append_attr:"placeholder:Username"| attr:"autofocus" }}</li>
+      <li>{{ form.password|append_attr:"placeholder:Password"}}</li>
+      {% csrf_token %}
+    </ul>
+    <div class="btn">
+      <ul>
+      <li><input type="hidden" name="next" value="{{ next }}" /></li>
+      <li><input style="width: 300px" type="submit" value="Log-in"></li>
+      <p><a href="{% url 'password_reset' %}" style="color: rgb(74, 240, 222)">Forgotten your  password?</a></p>
+      <p>New User? <a href="{% url 'signup' %}"style="color: green"> Sign up here</a></p>
+    </ul>
+  </div>
+  </div>
+    
+  </form>
+{% endblock %}

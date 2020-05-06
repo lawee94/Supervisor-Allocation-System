@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Admin Registration {% endblock %}
+    
+{% block script %}
+
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-0 my-5 py-2">
+
+    {% if messages %}
+        <ul class="mx-50 box-div bg-white mb-0" id="message" style="max-width: 800px">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                <div class="pt-3 px-3">
+                    <p class="text-danger">{{ message|safe }}
+                    <a href="" class="close ml-5 align-left" id="close">x</a></p>
+                </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="box-div py-3 bg-danger mt-1" style="max-width: 800px" >
+        <h3 class="text-white">Admin Registration</h3><hr class="white">
+        <form action="" class="form-horinzontal" method="post" >
+                {% if userform.errors %}
+                <p class="text-danger">{{ userform.errors }}</p>
+                {% endif %}
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="form-row "><li>{{userform.username}}</li></div>
+                    <div class="form-row"><li>{{ userform.password}}</li></div>
+                    <div class="form-row"><li>{{ userform.password2}}</li></div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-row"> <li>{{ userform.first_name }}</li></div>
+                    <div class="form-row"><li>{{ userform.last_name }}</li></div>
+                    <div class="form-row"><li>{{ userform.email }}</li> </div>
+                    {% csrf_token %}
+    
+                    <button  type="submit" class="btn btn-primary mb-1" >Submit</button>
+                </div>
+
+            </div>     
+        </form>
+    </div>
+</div>
+{% endblock %}

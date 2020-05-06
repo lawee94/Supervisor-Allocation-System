@@ -1,0 +1,55 @@
+{% extends 'mybase.html' %}
+
+{% block title %} Homepage {% endblock %}
+
+{% block content %}
+<div class="container-fluid mb-4" >
+    <div class="row">
+        <div class="col-lg-7 text-center py-5 hide">
+            <!-- <h1 class="text-white mt-5"><strong>Department of <br>Computer Science & Engineering</strong> </h1><br>
+            <h2 class="text-white "><strong>Obafemi Awolowo University <br> Ile_Ife</strong> </h2><br><br>
+            <h2 class="text-white "><strong>Project Supervisor Allocation System</strong> </h2> -->
+        </div>
+        <div class="col-lg-5 mt-5">
+
+                {% if messages %}
+                <ul class="mx-50 box-div bg-white " id="message" style="width: 400px">
+                    {% for message in messages %}
+                    <li class="{{ message.tags }}">
+                    <div class="pt-3 px-3">
+                        <p class="text-danger">{{ message|safe }}
+                        <a href="" class="close ml-5 align-left" id="close">x</a></p>
+                    </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <div class="box-div mx-50 py-3 bg-white mb-4" style="width: 400px" >
+                <form action="{% url 'pms:index' %}" class="form-horinzontal" method="post">
+                    <div id="container " >
+                        <h1>Log-in</h1><hr class="black">
+
+                        {% if form.errors %}
+                        <p>
+                            Incorrect username or password.
+                            Please try again.
+                        </p>
+                        {% endif %}
+                            {{ form.username }}
+                            {{ form.password }}
+                            {% csrf_token %}
+                        
+                            <input type="hidden" name="next" value="{{ next }}" />
+                            <button  type="submit" class="btn btn-primary" id="log">Log-in</button><br><br>
+                            <p><a  href="{% url 'password_reset' %}">Forgot Password?</a></p>
+                            <p >New User? <a href="{% url 'pms:student_reg' %}"style=""> Sign up here</a></p><br>
+                    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+</div>
+{% endblock %}

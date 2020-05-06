@@ -1,0 +1,159 @@
+@import url(http://fonts.googleapis.com/css?family=Muli);
+
+.box-div{
+    margin:  4% auto ;
+	text-align: center;
+	height: auto;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgb(12, 0, 0);;
+    border-radius: 10px;
+    overflow: hidden;
+}
+input, select, textarea {
+    clear:both;
+    margin:40px auto  ;
+    color: #000;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding:6px 10px;
+    font-size:14px;
+    width: 250px;   
+    display: block;
+}
+hr.white{
+    border: 2px solid #fff;
+    clear: both;
+}
+hr.black{
+    border: 2px solid #000;
+    clear: both;
+}
+.img-circle{
+	background-image: url("..//images/bgp.png");
+	width: 180px;
+	height: 180px;
+	background-size: cover;
+    background-repeat: no-repeat;
+    border: 6px solid #837E7E;
+    max-width:300px;
+}
+.form-row {
+    position: relative;
+    display: block;
+    font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+}
+
+.form-row .error{
+	padding: 7px 15px;
+    color:#000;
+    background-color: #cec3c3;
+    position: absolute;
+    z-index: 1;
+    top: 120%;
+    left: 11%;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.form-row .error::after {
+    content: "";
+    width: 14px;
+    position: absolute;
+    bottom: 100%;
+    left: 7%;
+    margin-left: -1px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #cec3c3 transparent;
+}
+
+li{
+    list-style: none;
+}
+.input-inline{
+    display: inline;
+    margin:0;
+}
+.container-fluid{
+    overflow: auto;
+}
+/* messages */
+.messages {
+    text-align: center;
+}
+
+ul.messages {
+    margin:10px auto;
+    padding:0;
+    list-style-type:none;
+    display: inline-block;
+
+}
+
+ul.messages p.success,
+ul.messages p.warning,
+ul.messages p.error,
+ul.messages p.info {
+    margin:0;
+    padding:14px 20px;
+    list-style:none;
+    color:#fff;
+}
+
+ul.messages p.success { background:#81ce81; }
+ul.messages p.success a { color:#0ac33e; }
+
+ul.messages p.error { background:#a30029; color:#fff; }
+ul.messages p.error a { color:#fff; }
+
+ul.messages p.info { background:#faffae; color:#696b4e; }
+ul.messages p.info a { color:#1586de; }
+
+ul.messages p.warning { background:#de9404; }
+ul.messages p.warning a { color:#f49000; }
+
+ul.messages p a.close {
+    margin:0 0 0 30px;
+    float:right;
+    opacity:1;
+    border:0;
+    box-shadow:none;
+    text-shadow:none;
+}
+.bg-white{
+    background-color: #fff;
+}
+
+.bg-green{
+    background-color: #1abc9c;
+}
+
+.o-f{
+    overflow: hidden;
+}
+.border-thick{
+    border: 4px solid #000;
+    background-color: #faffae;
+}
+.float{
+    position: absolute;
+    z-index: 1000;
+}
+footer{
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 7px 0;
+}
+
+.h-40{
+    height: 40%;
+}
+.h-45{
+    height: 45%;
+}
+.h-80{
+    height: 80%;
+}

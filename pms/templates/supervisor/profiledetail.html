@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% load mytag %}
+
+{% block title %} Supervisor Profile {% endblock %}
+
+{% block script %}
+   
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid w-75 mt-4 mb-4">
+
+        <div class="bg-danger rounded px-3 py-1">
+            <h3 class="text-white mt-2 ">Supervisor Profile</h3>
+        </div>   
+
+        <div class="box-div pt-3 bg-white mt-1 " style="min-height: 425px;" >
+
+                <ul class="nav nav-tabs">
+            
+                    <li class="nav-item" id="tab1">
+                        <a data-toggle="tab" class="nav-link active" id="login" href="#first">Basic Information</a>
+                    </li>
+            
+                    <li class="nav-item " id="tab2">
+                        <a data-toggle="tab" class="nav-link" id="personal" href="#second">Personal Information</a>
+                    </li>
+
+                    <li class="nav-item " id="tab3">
+                        <a data-toggle="tab" class="nav-link" id="student" href="#third">Project Students</a>
+                    </li>
+                        
+                    {% if request.user|has_group:"superadmin" %}
+                        <li class="nav-item " id="tab3">
+                            <a data-toggle="tab" class="nav-link" id="acct" href="#fourth">Manage Account</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            
+                <!--Nav-tab contents-->
+                <div class="tab-content">
+                
+                    <div class="tab-pane container active  " id="first">
+                       
+                        <img  class="rounded-circle img-circle m-4" src="{{ data.get_image }}" >
+                    
+                        <li><h2><strong>{{ data.surname }} {{ data.user.first_name }} {{ data.user.last_name }}</strong></h2></li>
+        
+                    </div><!--End of First Tab Content-->
+            
+                    <div class="tab-pane fade align-self-center" id="second">
+                        
+                        <li>Phone Number <h2><strong>{{ data.phone_no|default:None }}</strong></h2></li> <hr class="black">
+                        <li>E-mail <h4><strong>{{ data.user.email|default:None }}</strong></h4></li> <hr class="black">
+                        <li>First Area of Concentration <h4><strong>{{ data.AOC1|capfirst|default:None }}</strong></h4></li> <hr class="black">
+                        <li>Second Area of Concentration <h4><strong>{{ data.AOC2|capfirst|default:None }}</strong></h4></li> <hr class="black">
+                            
+                    </div><!--End of Second Tab Content-->
+
+                    <div class="tab-pane fade align-self-center px-5 py-3" id="third">
+                        
+                        {% if std %}
+                            <table class="table table-hover w-100">
+                                <thead>
+                                    <tr class="text-left">
+                                        <th>S/N </th>
+                                        <th>Matric Number</th>
+                                        <th>Name </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="">
+                                    {% for stds in std  %}
+                                    
+                                    <tr class="text-left">
+                                        
+                                        <td>{{ forloop.counter }}</td> 
+                                        <td><a href="{{ std.get_absolute_url }}"> {{ stds.user }} </a></td>
+                                        <td>{{ stds.surname }} {{ stds.user.first_name }} {{ stds.user.last_name }}</td> 
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <h2 class="mt-5">Allocation Not Yet Done!!! </h2>
+                        {% endif %}
+                            
+                          
+                    </div><!--End of Second Tab Content-->
+            
+                    <div class="tab-pane fade align-self-center pt-5" id="fourth">
+                            <button class="btn btn-primary js-edit-user" data-toggle="modal" data-target="#modal_del">Edit Profile</button>
+
+                            <button  data-url="{% url 'pms:update_user' data.pk %}" class="btn btn-primary js-js-edit-user"> Edit Profile</button>
+                            <button class="btn btn-danger js-act-user" data-toggle="modal" data-target="#modal_del">Deactivate Accont</button>
+                            <button class="btn btn-danger js-delete-user" data-toggle="modal" data-target="#modal_del">Delete Account</button>
+                    </div>
+
+                </div><!--End of Tab Content-->
+            
+            </div>
+        </div>   
+
+         <!--Modal-->
+    <div class="modal fade" id="modal_user">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            
+          </div>
+        </div>
+      </div>
+  <!--End of Modal-->
+
+    </div>
+
+   
+
+{% endblock %}
